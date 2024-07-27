@@ -1,6 +1,20 @@
+#!/usr/bin/python3
+"""
+UTF-8 Validation module
+"""
+
 def validUTF8(data):
+    """
+    Method to determine if a given data set represents a valid UTF-8 encoding.
+    
+    Args:
+    data : List of integers
+    
+    Returns:
+    bool : True if data is a valid UTF-8 encoding, else False
+    """
     def check_byte(byte):
-        # Check the byte is of the form 10xxxxxx
+        # Check if byte is of the form 10xxxxxx
         return (byte & 0b11000000) == 0b10000000
 
     i = 0
@@ -18,6 +32,7 @@ def validUTF8(data):
         else:
             return False
         
+        # Check that the next 'count' bytes are of the form 10xxxxxx
         for j in range(1, count + 1):
             if i + j >= len(data) or not check_byte(data[i + j]):
                 return False
